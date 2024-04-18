@@ -1,4 +1,4 @@
-module github.com/zitadel/zitadel-go/v3
+module github.com/sjonpaulbrown-cc/zitadel-go
 
 go 1.20
 
