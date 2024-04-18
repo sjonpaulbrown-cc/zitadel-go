@@ -9,6 +9,7 @@ type Zitadel struct {
 	domain string
 	port   string
 	tls    bool
+	host string
 }
 
 func New(domain string, options ...Option) *Zitadel {
@@ -34,6 +35,13 @@ func WithInsecure(port string) Option {
 	}
 }
 
+// WithInsecure allows to connect to a ZITADEL instance running without TLS
+func WithHost(host string) Option {
+	return func(z *Zitadel) {
+		z.host = host
+	}
+}
+
 // Origin returns the HTTP Origin (schema://hostname[:port]), e.g.
 // https://your-instance.zitadel.cloud
 // https://your-domain.com
@@ -44,6 +52,9 @@ func (z *Zitadel) Origin() string {
 
 // Host returns the domain:port (even if the default port is used)
 func (z *Zitadel) Host() string {
+	if z.host != "" {
+		return z.host
+	}
 	return z.domain + ":" + z.port
 }
 
